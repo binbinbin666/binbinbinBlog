@@ -2,17 +2,17 @@ package com.chen.communit.controller;
 
 import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @GetMapping("/")
