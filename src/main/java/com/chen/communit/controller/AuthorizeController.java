@@ -15,6 +15,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * GitHub登陆授权
+ */
 @Controller
 public class AuthorizeController {
 
@@ -41,19 +44,27 @@ public class AuthorizeController {
         accessTokenDTO.setCode(code);
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
+        //获取accessToken
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
+        //获取gitHubUser
         GitHubUser gitHubUser = gitHubProvider.getUser(accessToken);
+
         if (gitHubUser != null && gitHubUser.getId() != null){
             User user = new User();
+            //自动生成token
             String token = UUID.randomUUID().toString();
+
             user.setToken(token);
             user.setName(gitHubUser.getName());
             user.setAccountId(String.valueOf(gitHubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
+            //插入新用户
             userMapper.insert(user);
+            //添加cookie,用来查询新用户信息
             response.addCookie(new Cookie("token",token));
+            //登录成功返回首页
             return "redirect:/";
         }else{
             //登陆失败，重新登录
