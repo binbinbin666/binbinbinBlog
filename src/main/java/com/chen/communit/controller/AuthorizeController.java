@@ -5,6 +5,7 @@ import com.chen.communit.dto.GitHubUser;
 import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.User;
 import com.chen.communit.provider.GitHubProvider;
+import com.chen.communit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -32,7 +34,7 @@ public class AuthorizeController {
     private String redirectUri;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callBack(@RequestParam(name = "code") String code,
@@ -57,11 +59,10 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(gitHubUser.getName());
             user.setAccountId(String.valueOf(gitHubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
+            user.setBio(gitHubUser.getBio());
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
-            //插入新用户
-            userMapper.insert(user);
+            //插入新用户或者更新用户
+            userService.createOrUpdate(user);
             //添加cookie,用来查询新用户信息
             response.addCookie(new Cookie("token",token));
             //登录成功返回首页
@@ -70,5 +71,16 @@ public class AuthorizeController {
             //登陆失败，重新登录
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logOut(HttpServletRequest request,HttpServletResponse response){
+        //移除session
+        request.getSession().removeAttribute("user");
+        //删除cookie
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }
