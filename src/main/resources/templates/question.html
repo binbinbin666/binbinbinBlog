@@ -11,7 +11,7 @@
 </head>
 <body>
 <!--引入导航栏-->
-<div th:insert="navigation :: nav"></div>
+<div th:insert="common/navigation :: nav"></div>
 
 <div class="container-fluid main profile">
     <div class="row">
@@ -44,6 +44,9 @@
                         <h5 class="media-heading" >
                             <span th:text="${question.user.name}"></span>
                         </h5>
+                        <span class="text-desc">
+                            个人说明：<span th:text="${question.user.bio}"></span>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ public class QuestionService {
     private UserMapper userMapper;
 
     /**
-     *
+     * 显示全部问题
      * @param page 页码
      * @param size 每页显示的数据条数
      * @return
@@ -47,7 +47,7 @@ public class QuestionService {
 
         for (Question question : questionMapper.list(offset,size)) {
             QuestionDTO questionDTO = new QuestionDTO();
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             questionDTO.setUser(user);
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
@@ -76,7 +76,7 @@ public class QuestionService {
 
         for (Question question : questionMapper.listByUserId(userId,offset,size)) {
             QuestionDTO questionDTO = new QuestionDTO();
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             questionDTO.setUser(user);
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
@@ -85,12 +85,33 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    //通过id查询问题
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
-        User user = userMapper.findById(question.getCreator());
+        //通过创建人的id查询出创建人
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    //创建或修改问题
+    public void createOrUpdate(Question question) {
+        if (question.getId() == null) {
+            //无id新增问题
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        } else {
+            //修改问题
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
+    }
+
+    //删除问题
+    public void delById(Integer id) {
+        questionMapper.delById(id);
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 <!--引入导航栏-->
-<div th:insert="navigation :: nav"></div>
+<div th:insert="common/navigation :: nav"></div>
 
 <div class="container-fluid main">
     <div class="row">
@@ -22,7 +22,9 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 profile">
             <div class="list-group section">
-                <a href="/profile/questions" th:class="${section == 'questions'}?'list-group-item active':'list-group-item'">我的提问</a>
+                <a href="/profile/questions" th:class="${section == 'questions'}?'list-group-item active':'list-group-item'">
+                    我的提问
+                </a>
                 <a href="/profile/replies" th:class="${section == 'replies'}?'list-group-item active':'list-group-item'">
                     最新回复
                     <span class="badge">14</span>
@@ -39,12 +41,13 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <a th:href="@{'/delete/'+${question.id}}" style="float: right;" class="btn btn-default btn-sm" role="button">删除</a>
                     <span th:text="${question.description}"></span><br>
                     <span class="text-desc">
-                            <span th:text="${question.commentCount}"></span> 个回复 •
-                            <span th:text="${question.viewCount}"></span> 次浏览 •
-                            <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd  HH:mm')}"></span>
-                        </span>
+                        <span th:text="${question.commentCount}"></span> 个回复 •
+                        <span th:text="${question.viewCount}"></span> 次浏览 •
+                        <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd  HH:mm')}"></span>
+                    </span>
                 </div>
             </div>
             <nav aria-label="Page navigation">

@@ -14,11 +14,28 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 查看问题详情
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Integer id,
                            Model model){
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("question",questionDTO);
         return "question";
+    }
+
+    /**
+     * 删除问题
+     * @param id
+     * @return
+     */
+    @GetMapping("/delete/{id}")
+    public String delQuestion(@PathVariable("id") Integer id){
+        questionService.delById(id);
+        return "redirect:/profile/questions";
     }
 }
