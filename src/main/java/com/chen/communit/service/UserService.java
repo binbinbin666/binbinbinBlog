@@ -19,21 +19,21 @@ public class UserService {
         List<User> users = userMapper.selectByExample(userExample);
 
         if (users.size() == 0) {
-            //插入
+            //添加新用户
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
         }else {
             //更新
             User dbUser = users.get(0);
-
+            //需更新的字段
             User updateUser = new User();
             updateUser.setGmtModified(System.currentTimeMillis());
             updateUser.setAvatarUrl(user.getAvatarUrl());
             updateUser.setName(user.getName());
             updateUser.setToken(user.getToken());
             updateUser.setBio(user.getBio());
-
+            //根据id更新
             UserExample example = new UserExample();
             example.createCriteria().andIdEqualTo(dbUser.getId());
             userMapper.updateByExampleSelective(updateUser,example);

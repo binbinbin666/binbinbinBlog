@@ -27,7 +27,7 @@ public class PublishController {
         return "publish";
     }
 
-    //发布问题
+    //发布问题或者修改问题
     @PostMapping("/publish")
     public String doPublish(
             @RequestParam(value = "title",required = false) String title,
@@ -68,7 +68,12 @@ public class PublishController {
         question.setId(id);
 
         questionService.createOrUpdate(question);
-        return "redirect:/";
+        if(id == null){
+            return "redirect:/";
+        }else {
+            String url = "/question/"+id;
+            return "redirect:"+url;
+        }
     }
 
     //修改问题时显示出原来的数据

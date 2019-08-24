@@ -2,10 +2,14 @@ package com.chen.communit.service;
 
 import com.chen.communit.dto.PaginationDTO;
 import com.chen.communit.dto.QuestionDTO;
+import com.chen.communit.exception.CustomizeErrorCode;
+import com.chen.communit.exception.CustomizeException;
 import com.chen.communit.mapper.QuestionMapper;
 import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.Question;
+import com.chen.communit.model.QuestionExample;
 import com.chen.communit.model.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +36,7 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         //查询数据总条数
-        Integer totalCount = questionMapper.count();
+        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
 
         paginationDTO.setPagination(totalCount,page,size);
         //控制页数
@@ -45,8 +49,12 @@ public class QuestionService {
         //size*(page-1)
         Integer offset = size*(page - 1);
 
-        for (Question question : questionMapper.list(offset,size)) {
+        for (Question question : questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,size))) {
             QuestionDTO questionDTO = new QuestionDTO();
+            //问题描述
+            Question selectByPrimaryKey = questionMapper.selectByPrimaryKey(question.getId());
+            question.setDescription(selectByPrimaryKey.getDescription());
+
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             questionDTO.setUser(user);
             BeanUtils.copyProperties(question,questionDTO);
@@ -61,7 +69,9 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         //查询数据总条数
-        Integer totalCount = questionMapper.countByUserId(userId);
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria().andCreatorEqualTo(userId);
+        Integer totalCount = (int)questionMapper.countByExample(questionExample);
 
         paginationDTO.setPagination(totalCount,page,size);
         //控制页数
@@ -74,8 +84,14 @@ public class QuestionService {
         //size*(page-1)
         Integer offset = size*(page - 1);
 
-        for (Question question : questionMapper.listByUserId(userId,offset,size)) {
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(userId);
+        for (Question question : questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size))) {
             QuestionDTO questionDTO = new QuestionDTO();
+            //问题描述
+            Question selectByPrimaryKey = questionMapper.selectByPrimaryKey(question.getId());
+            question.setDescription(selectByPrimaryKey.getDescription());
+
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             questionDTO.setUser(user);
             BeanUtils.copyProperties(question,questionDTO);
@@ -87,7 +103,11 @@ public class QuestionService {
 
     //通过id查询问题
     public QuestionDTO getById(Integer id) {
-        Question question = questionMapper.getById(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
+        //如果id不存在,抛出异常
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         //通过创建人的id查询出创建人
@@ -96,22 +116,34 @@ public class QuestionService {
         return questionDTO;
     }
 
-    //创建或修改问题
+    //发布或修改问题
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
             //无id新增问题
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.create(question);
+            questionMapper.insert(question);
         } else {
             //修改问题
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.update(question);
+            //修改的问题的内容
+            Question updateQuestion = new Question();
+            updateQuestion.setGmtModified(System.currentTimeMillis());
+            updateQuestion.setTitle(question.getTitle());
+            updateQuestion.setDescription(question.getDescription());
+            updateQuestion.setTag(question.getTag());
+            //根据Id修改
+            QuestionExample example = new QuestionExample();
+            example.createCriteria().andIdEqualTo(question.getId());
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (updated == 0) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 
     //删除问题
     public void delById(Integer id) {
-        questionMapper.delById(id);
+        questionMapper.deleteByPrimaryKey(id);
     }
 }

@@ -5,6 +5,14 @@
 
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+
+        <commentGenerator >
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->
+        </commentGenerator>
+
         <jdbcConnection driverClass="org.h2.Driver"
                         connectionURL="jdbc:h2:~/community"
                         userId="sa"
@@ -28,8 +36,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User" >
-        </table>
+        <table tableName="user" domainObjectName="User" ></table>
+        <table tableName="question" domainObjectName="Question" ></table>
 
     </context>
 </generatorConfiguration>
