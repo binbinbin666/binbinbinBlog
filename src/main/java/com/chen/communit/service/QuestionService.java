@@ -4,6 +4,7 @@ import com.chen.communit.dto.PaginationDTO;
 import com.chen.communit.dto.QuestionDTO;
 import com.chen.communit.exception.CustomizeErrorCode;
 import com.chen.communit.exception.CustomizeException;
+import com.chen.communit.mapper.QuestionExtMapper;
 import com.chen.communit.mapper.QuestionMapper;
 import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.Question;
@@ -24,6 +25,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     /**
      * 显示全部问题
@@ -64,7 +68,13 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    //查询我发布的问题
+    /**
+     * 查询我发布的问题
+     * @param userId
+     * @param page
+     * @param size 每页显示的数据条数
+     * @return
+     */
     public PaginationDTO list(Integer userId, Integer page, Integer size) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -101,7 +111,11 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    //通过id查询问题
+    /**
+     * 通过id查询问题
+     * @param id
+     * @return
+     */
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         //如果id不存在,抛出异常
@@ -116,10 +130,17 @@ public class QuestionService {
         return questionDTO;
     }
 
-    //发布或修改问题
+
+    /**
+     * 发布或修改问题
+     * @param question
+     */
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
             //无id新增问题
+            question.setViewCount(0);
+            question.setCommentCount(0);
+            question.setLikeCount(0);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             questionMapper.insert(question);
@@ -141,9 +162,22 @@ public class QuestionService {
             }
         }
     }
-
-    //删除问题
+    /**
+     * 删除问题
+     * @param id
+     */
     public void delById(Integer id) {
         questionMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 增加阅读数
+     * @param id
+     */
+    public void inView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }
