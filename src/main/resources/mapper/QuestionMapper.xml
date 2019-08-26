@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chen.communit.mapper.QuestionMapper">
   <resultMap id="BaseResultMap" type="com.chen.communit.model.Question">
-    <id column="ID" jdbcType="INTEGER" property="id" />
+    <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
     <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate" />
     <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
-    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="CREATOR" jdbcType="BIGINT" property="creator" />
     <result column="COMMENT_COUNT" jdbcType="INTEGER" property="commentCount" />
     <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount" />
     <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount" />
@@ -110,17 +110,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from QUESTION
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from QUESTION
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.chen.communit.model.QuestionExample">
     delete from QUESTION
@@ -133,8 +133,8 @@
       GMT_MODIFIED, CREATOR, COMMENT_COUNT, 
       VIEW_COUNT, LIKE_COUNT, TAG, 
       DESCRIPTION)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, 
-      #{gmtModified,jdbcType=BIGINT}, #{creator,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, 
+      #{gmtModified,jdbcType=BIGINT}, #{creator,jdbcType=BIGINT}, #{commentCount,jdbcType=INTEGER}, 
       #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
       #{description,jdbcType=CLOB})
   </insert>
@@ -174,7 +174,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
         #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="creator != null">
-        #{creator,jdbcType=INTEGER},
+        #{creator,jdbcType=BIGINT},
       </if>
       <if test="commentCount != null">
         #{commentCount,jdbcType=INTEGER},
@@ -215,7 +215,7 @@
     update QUESTION
     <set>
       <if test="record.id != null">
-        ID = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.title != null">
         TITLE = #{record.title,jdbcType=VARCHAR},
@@ -227,7 +227,7 @@
         GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
       </if>
       <if test="record.creator != null">
-        CREATOR = #{record.creator,jdbcType=INTEGER},
+        CREATOR = #{record.creator,jdbcType=BIGINT},
       </if>
       <if test="record.commentCount != null">
         COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER},
@@ -251,11 +251,11 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update QUESTION
-    set ID = #{record.id,jdbcType=INTEGER},
+    set ID = #{record.id,jdbcType=BIGINT},
       TITLE = #{record.title,jdbcType=VARCHAR},
       GMT_CREATE = #{record.gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
-      CREATOR = #{record.creator,jdbcType=INTEGER},
+      CREATOR = #{record.creator,jdbcType=BIGINT},
       COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER},
       VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER},
       LIKE_COUNT = #{record.likeCount,jdbcType=INTEGER},
@@ -267,11 +267,11 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update QUESTION
-    set ID = #{record.id,jdbcType=INTEGER},
+    set ID = #{record.id,jdbcType=BIGINT},
       TITLE = #{record.title,jdbcType=VARCHAR},
       GMT_CREATE = #{record.gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
-      CREATOR = #{record.creator,jdbcType=INTEGER},
+      CREATOR = #{record.creator,jdbcType=BIGINT},
       COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER},
       VIEW_COUNT = #{record.viewCount,jdbcType=INTEGER},
       LIKE_COUNT = #{record.likeCount,jdbcType=INTEGER},
@@ -293,7 +293,7 @@
         GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="creator != null">
-        CREATOR = #{creator,jdbcType=INTEGER},
+        CREATOR = #{creator,jdbcType=BIGINT},
       </if>
       <if test="commentCount != null">
         COMMENT_COUNT = #{commentCount,jdbcType=INTEGER},
@@ -311,32 +311,32 @@
         DESCRIPTION = #{description,jdbcType=CLOB},
       </if>
     </set>
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chen.communit.model.Question">
     update QUESTION
     set TITLE = #{title,jdbcType=VARCHAR},
       GMT_CREATE = #{gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
-      CREATOR = #{creator,jdbcType=INTEGER},
+      CREATOR = #{creator,jdbcType=BIGINT},
       COMMENT_COUNT = #{commentCount,jdbcType=INTEGER},
       VIEW_COUNT = #{viewCount,jdbcType=INTEGER},
       LIKE_COUNT = #{likeCount,jdbcType=INTEGER},
       TAG = #{tag,jdbcType=VARCHAR},
       DESCRIPTION = #{description,jdbcType=CLOB}
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chen.communit.model.Question">
     update QUESTION
     set TITLE = #{title,jdbcType=VARCHAR},
       GMT_CREATE = #{gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
-      CREATOR = #{creator,jdbcType=INTEGER},
+      CREATOR = #{creator,jdbcType=BIGINT},
       COMMENT_COUNT = #{commentCount,jdbcType=INTEGER},
       VIEW_COUNT = #{viewCount,jdbcType=INTEGER},
       LIKE_COUNT = #{likeCount,jdbcType=INTEGER},
       TAG = #{tag,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.chen.communit.model.QuestionExample" resultMap="ResultMapWithBLOBs">
     select

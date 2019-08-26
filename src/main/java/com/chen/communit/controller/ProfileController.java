@@ -1,6 +1,8 @@
 package com.chen.communit.controller;
 
 import com.chen.communit.dto.PaginationDTO;
+import com.chen.communit.exception.CustomizeErrorCode;
+import com.chen.communit.exception.CustomizeException;
 import com.chen.communit.model.User;
 import com.chen.communit.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class ProfileController {
         }else if ("replies".equals(action)){
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
+        }else {
+            //请求异常处理
+            throw new CustomizeException(CustomizeErrorCode.REQUEST_ERROR);
         }
 
         PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);

@@ -75,7 +75,7 @@ public class QuestionService {
      * @param size 每页显示的数据条数
      * @return
      */
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         //查询数据总条数
@@ -116,7 +116,7 @@ public class QuestionService {
      * @param id
      * @return
      */
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         //如果id不存在,抛出异常
         if (question == null){
@@ -137,7 +137,7 @@ public class QuestionService {
      */
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
-            //无id新增问题
+            //无id创建问题
             question.setViewCount(0);
             question.setCommentCount(0);
             question.setLikeCount(0);
@@ -166,7 +166,7 @@ public class QuestionService {
      * 删除问题
      * @param id
      */
-    public void delById(Integer id) {
+    public void delById(long id) {
         questionMapper.deleteByPrimaryKey(id);
     }
 
@@ -174,7 +174,7 @@ public class QuestionService {
      * 增加阅读数
      * @param id
      */
-    public void inView(Integer id) {
+    public void inView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
