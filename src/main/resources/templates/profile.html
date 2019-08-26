@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
 <!--引入导航栏-->
@@ -41,7 +42,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${question.title}"></h4>
-                    <a th:href="@{'/delete/'+${question.id}}" style="float: right;" class="btn btn-danger btn-sm" role="button">删除</a>
+                    <a th:href="@{'/delete/'+${question.id}}" style="float: right;" class="btn btn-danger btn-sm" role="button" onclick="return deleteQuestion()">删除</a>
                     <a th:href="@{'/publish/'+${question.id}}" style="float: right;" class="btn btn-default btn-sm" role="button">修改</a>
                     <span th:text="${question.description}"></span><br>
                     <span class="text-desc">
