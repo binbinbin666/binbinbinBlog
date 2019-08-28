@@ -13,6 +13,7 @@ function post() {
         success: function (response) {
             if (response.code == 200) {
                 $("#comment_section").hide();
+                window.location.reload();
             } else {
                 if (response.code == 2003) {
                     var isAccepted = confirm(response.message);
@@ -35,7 +36,7 @@ function login() {
     window.localStorage.setItem("closeable",true);
     setTimeout(function () {
         window.location.reload();
-    }, 3000);
+    }, 4000);
 }
 
 function deleteQuestion() {

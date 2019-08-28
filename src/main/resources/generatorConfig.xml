@@ -13,10 +13,21 @@
             <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->
         </commentGenerator>
 
-        <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:~/community"
-                        userId="sa"
-                        password="123">
+<!--        <jdbcConnection driverClass="my"-->
+<!--                        connectionURL="jdbc:h2:~/community"-->
+<!--                        userId="sa"-->
+<!--                        password="123">-->
+<!--        </jdbcConnection>-->
+
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/community?serverTimezone=UTC"
+                userId="root"
+                password="123456">
+                <!--设置可以获取tables remarks信息-->
+                <property name="useInformationSchema" value="true"/>
+                <!--设置可以获取remarks信息-->
+                <property name="remarks" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -37,7 +48,9 @@
         </javaClientGenerator>
 
         <table tableName="user" domainObjectName="User" ></table>
-        <table tableName="question" domainObjectName="Question" ></table>
+        <table tableName="question" domainObjectName="Question" >
+            <columnOverride column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>
         <table tableName="comment" domainObjectName="Comment" ></table>
 
     </context>
