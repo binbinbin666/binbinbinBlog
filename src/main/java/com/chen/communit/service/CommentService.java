@@ -46,7 +46,7 @@ public class CommentService {
 
         if (comment.getType() == CommentTypeEnum.COMMENT.getType()){
             //回复评论
-            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getId());
+            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
             if (dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
@@ -67,12 +67,13 @@ public class CommentService {
     /**
      * 查询问题的评论
      * @param id
+     * @param type
      * @return
      */
-    public List<CommentDTO> listByQuestionId(long id) {
+    public List<CommentDTO> listByTargetId(long id, CommentTypeEnum type) {
         CommentExample example = new CommentExample();
         example.createCriteria().andParentIdEqualTo(id)
-        .andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        .andTypeEqualTo(type.getType());
         example.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(example);
 
