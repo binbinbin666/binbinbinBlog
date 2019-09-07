@@ -72,4 +72,18 @@ public class CommentController {
         List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
         return ResultDTO.okOf(commentDTOS);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/thumbsup",method = RequestMethod.POST)
+    public Object thumbsUp(@RequestBody CommentCreateDTO commentCreateDTO,
+                         HttpServletRequest httpServletRequest){
+        //判断是否登录
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        if (user == null){
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+
+        commentService.thumbsUp(commentCreateDTO.getCommentId());
+        return ResultDTO.okOf();
+    }
 }

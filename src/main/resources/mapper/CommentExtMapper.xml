@@ -19,4 +19,11 @@
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
   </update>
+
+  <update id="incthumbsUpCount" parameterType="com.chen.communit.model.Comment">
+    update comment
+    set
+    like_count = like_count + #{likeCount,jdbcType=INTEGER}
+    where id = #{id}
+  </update>
 </mapper>

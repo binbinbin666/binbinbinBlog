@@ -107,4 +107,15 @@ public class CommentService {
         }).collect(Collectors.toList());
         return commentDTOS;
     }
+
+    /**
+     * 点赞功能
+     * @param id
+     */
+    public void thumbsUp(long id) {
+        Comment comment = new Comment();
+        comment.setLikeCount(1l);
+        comment.setId(id);
+        commentExtMapper.incthumbsUpCount(comment);
+    }
 }
