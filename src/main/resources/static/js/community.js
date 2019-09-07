@@ -14,10 +14,10 @@ function post() {
 function comment(e) {
     var commentId = e.getAttribute("data-id");
     var content = $("#input-" + commentId).val();
-    comment2target(commentId, 2, content)
+    comment2target(commentId, 2, content, e)
 }
 
-function comment2target(targetId, type, content) {
+function comment2target(targetId, type, content, e) {
     if (!content) {
         alert("不能回复空内容~")
         return;
@@ -33,7 +33,17 @@ function comment2target(targetId, type, content) {
         }),
         success: function (response) {
             if (response.code == 200) {
-                window.location.reload();
+                if (type == 1) {
+                    window.location.reload();
+                } else {
+                    var commentId = e.getAttribute("data-id");
+                    //增加评论数
+                    $("#CommentCount-" +commentId).text(Number($("#CommentCount-"+commentId).text()) + 1);
+                    //清空回复框的值
+                    $("#input-" + commentId).val("");
+                    var elementById = document.getElementById("collapse-" + commentId);
+                    AddComments(elementById);
+                }
             } else {
                 if (response.code == 2003) {
                     var isAccepted = confirm(response.message);
@@ -73,7 +83,7 @@ function deleteQuestion() {
  */
 function collapseComments(e) {
     var id = e.getAttribute("data-id");
-    var comments = $("#comment2-" + id)
+    var comments = $("#comment2-" + id);
     //获取二级评论的展开状态
     var collapse = e.getAttribute("data-collapse");
     if (collapse) {
@@ -86,15 +96,15 @@ function collapseComments(e) {
 
         var subCommentContainer = $("#comment2-" + id);
         //判断是否加载过
-        if (subCommentContainer.children().length !== 1){
+        if (subCommentContainer.children().length !== 1) {
             //展开二级评论
             comments.addClass("in");
             //标记二级评论为展开状态
             e.setAttribute("data-collapse", "in");
             e.classList.add("active");
-        }else {
+        } else {
             $.getJSON("/comment/" + id, function (data) {
-                $.each(data.data.reverse(), function (index,comment) {
+                $.each(data.data.reverse(), function (index, comment) {
 
 
                     var avatar = $("<img/>", {
@@ -107,10 +117,9 @@ function collapseComments(e) {
                     mediaLeft.append(avatar);
 
 
-
                     var mediaHead_span = $("<span/>", {
                         "class": "media-heading",
-                        "text":comment.user.name
+                        "text": comment.user.name
                     });
                     var mediaHead = $("<h5/>", {
                         "class": "media-heading"
@@ -125,7 +134,7 @@ function collapseComments(e) {
                     var menu_span = $("<span/>", {
                         "class": "pull-right",
                         "text": new Date(comment.gmtCreate + 8 * 3600 * 1000).toJSON().substr(0, 19)
-                            .replace('.',/-/g)
+                            .replace('.', /-/g)
                             .replace('T', ' ')
                     });
                     var menu = $("<div/>", {
@@ -153,10 +162,8 @@ function collapseComments(e) {
                     commentElement.append(media);
                     subCommentContainer.prepend(commentElement);
                 });
-
             })
         }
-
 
         //展开二级评论
         comments.addClass("in");
@@ -165,6 +172,107 @@ function collapseComments(e) {
         e.classList.add("active");
     }
 }
+
+/**
+ * 点击回复后不刷新页面增加新回复
+ * @param e
+ * @constructor
+ */
+function AddComments(e) {
+    var id = e.getAttribute("data-id");
+    var subCommentContainer = $("#comment2-" + id);
+    var comments = $("#comment2-" + id);
+    //清空所有子节点
+    subCommentContainer.empty();
+    //加载子节点
+    $.getJSON("/comment/" + id, function (data) {
+        $.each(data.data.reverse(), function (index, comment) {
+
+            var avatar = $("<img/>", {
+                "class": "media-object img-rounded",
+                "src": comment.user.avatarUrl
+            });
+            var mediaLeft = $("<div/>", {
+                "class": "media-left",
+            });
+            mediaLeft.append(avatar);
+
+
+            var mediaHead_span = $("<span/>", {
+                "class": "media-heading",
+                "text": comment.user.name
+            });
+            var mediaHead = $("<h5/>", {
+                "class": "media-heading"
+            });
+            mediaHead.append(mediaHead_span);
+
+            var content = $("<div/>", {
+                "class": "media-body",
+                "text": comment.content
+            });
+
+            var menu_span = $("<span/>", {
+                "class": "pull-right",
+                "text": new Date(comment.gmtCreate + 8 * 3600 * 1000).toJSON().substr(0, 19)
+                    .replace('.', /-/g)
+                    .replace('T', ' ')
+            });
+            var menu = $("<div/>", {
+                "class": "menu",
+            });
+            menu.append(menu_span);
+
+
+            var mediaBody = $("<div/>", {
+                "class": "media-body",
+            });
+            mediaBody.append(mediaHead);
+            mediaBody.append(content);
+            mediaBody.append(menu);
+
+            var media = $("<div/>", {
+                "class": "media",
+            });
+            media.append(mediaLeft);
+            media.append(mediaBody);
+
+            var commentElement = $("<div/>", {
+                "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comments",
+            });
+            commentElement.append(media);
+            subCommentContainer.prepend(commentElement);
+        });
+
+        var inputEle = $("<input/>", {
+            "class": "form-control",
+            "type": "text",
+            "placeholder":"回复...",
+            "id":"input-"+id,
+        });
+        var buttonEle = $("<button/>", {
+            "class": "btn btn-success pull-right",
+            "type": "button",
+            "onclick":"comment(this)",
+            "data-id":id,
+            "text":"回复"
+        });
+
+        var inputDiv = $("<div/>", {
+            "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+        });
+        inputDiv.append(inputEle);
+        inputDiv.append(buttonEle);
+        subCommentContainer.append(inputDiv);
+
+    });
+    //展开二级评论
+    comments.addClass("in");
+    //标记二级评论为展开状态
+    e.setAttribute("data-collapse", "in");
+    e.classList.add("active");
+}
+
 
 /**
  * 点赞功能
@@ -180,7 +288,9 @@ function thumbsUp(e) {
         }),
         success: function (response) {
             if (response.code == 200) {
-                document.getElementById(commentId).innerText = Number(document.getElementById(commentId).innerText)+1;
+                $("#LikeCount-"+commentId).addClass("active");
+                $("#ThumbsUp-"+commentId).addClass("active");
+                $("#LikeCount-"+commentId).text(Number($("#LikeCount-"+commentId).text()) + 1);
             } else {
                 if (response.code == 2003) {
                     var isAccepted = confirm(response.message);

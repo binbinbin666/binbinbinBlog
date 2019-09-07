@@ -62,11 +62,11 @@
                             </h5>
                             <div th:text="${comment.content}"></div>
                             <div class="menu">
-                                <span class="glyphicon glyphicon-thumbs-up icon" th:data-id="${comment.id}" onclick="thumbsUp(this)">
-                                    <span th:text="${comment.getLikeCount()}" class="count" th:id="${comment.id}"></span>
+                                <span class="glyphicon glyphicon-thumbs-up icon" th:data-id="${comment.id}" th:id="${'ThumbsUp-'+comment.id}" onclick="thumbsUp(this)">
+                                    <span th:text="${comment.getLikeCount()}" class="count" th:id="${'LikeCount-'+comment.id}"></span>
                                 </span>
-                                <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.id}" onclick="collapseComments(this)">
-                                    <span th:text="${comment.getCommentCount()}" class="count"></span>
+                                <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.id}" th:id="${'collapse-'+comment.id}" onclick="collapseComments(this)">
+                                    <span th:text="${comment.getCommentCount()}" class="count" th:id="${'CommentCount-'+comment.id}"></span>
                                 </span>
                                 <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
                             </div>
