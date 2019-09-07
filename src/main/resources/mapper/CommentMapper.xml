@@ -10,6 +10,7 @@
     <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
     <result column="LIKE_COUNT" jdbcType="BIGINT" property="likeCount" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="COMMENT_COUNT" jdbcType="INTEGER" property="commentCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, PARENT_ID, TYPE, COMMENTATOR, GMT_CREATE, GMT_MODIFIED, LIKE_COUNT, CONTENT
+    ID, PARENT_ID, TYPE, COMMENTATOR, GMT_CREATE, GMT_MODIFIED, LIKE_COUNT, CONTENT,COMMENT_COUNT
   </sql>
   <select id="selectByExample" parameterType="com.chen.communit.model.CommentExample" resultMap="BaseResultMap">
     select
@@ -105,10 +106,10 @@
   <insert id="insert" parameterType="com.chen.communit.model.Comment">
     insert into COMMENT (ID, PARENT_ID, TYPE, 
       COMMENTATOR, GMT_CREATE, GMT_MODIFIED, 
-      LIKE_COUNT, CONTENT)
+      LIKE_COUNT, CONTENT,COMMENT_COUNT)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
       #{commentator,jdbcType=BIGINT}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{likeCount,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR})
+      #{likeCount,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR},#{commentCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.chen.communit.model.Comment">
     insert into COMMENT
@@ -136,6 +137,8 @@
       </if>
       <if test="content != null">
         CONTENT,
+      </if><if test="commentCount != null">
+        COMMENT_COUNT,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">

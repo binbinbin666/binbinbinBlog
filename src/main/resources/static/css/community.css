@@ -62,7 +62,13 @@ body{
     margin-top: 15px;
 }
 .menu .icon{
-    margin-right: 6px;
+    margin-right: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu .count{
+    margin-left: -8px;
     font-size: 15px;
     cursor: pointer;
 }
