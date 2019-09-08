@@ -10,13 +10,16 @@ import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.Question;
 import com.chen.communit.model.QuestionExample;
 import com.chen.communit.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -179,5 +182,31 @@ public class QuestionService {
         question.setId(id);
         question.setViewCount(1);
         questionExtMapper.incView(question);
+    }
+
+    /**
+     * 查询左边的推荐内容
+     * @param queryDTO
+     * @return
+     */
+    public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
+        String questionDTOTag = queryDTO.getTag();
+        if (StringUtils.isBlank(questionDTOTag)) {
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(questionDTOTag, ",");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(queryDTO.getId());
+        question.setTag(regexpTag);
+
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        //questions转换为QuestionDTO
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
     }
 }

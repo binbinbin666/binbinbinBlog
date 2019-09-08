@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3><span th:text="${question.title}"></span></h3>
+                <h3><span th:text="${question.title}" class="bold"></span></h3>
                 <span class="text-desc">
                 作者：<span th:text="${question.user.name}"></span> |
                 发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd  HH:mm')}"></span> |
@@ -37,8 +37,13 @@
                     删除
                 </a>
                 </span>
-                    <hr>
-                    <h4>问题内容：</h4><br>
+                <hr>
+                <span th:each="tag : ${question.tag.split(',')}">
+                    <span class="glyphicon glyphicon-tags"></span>
+                    <span class="label label-info" th:text="${tag}"></span>
+                </span>
+                <hr>
+                    <h4 class="bold">问题内容：</h4><br>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content" th:text="${question.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
@@ -46,7 +51,7 @@
             <!--            回复内容-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>
-                    <span  th:text="${question.commentCount}"></span> 个回复
+                    <span  th:text="${question.commentCount}" ></span> 个回复
                 </h4>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" th:each="comment : ${comments}">
@@ -130,7 +135,7 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>发起人</h4>
+                <h4 class="bold">发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
@@ -149,7 +154,17 @@
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>相关问题</h4>
+                <h4 class="bold">扫码加站长微信哦</h4>
+                <img src="/img/wexin.png" class="question-wechat">
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="bold">相关问题</h4>
+                <ul class="question-related">
+                    <li th:each="related : ${relateQuestions}">
+                        <a th:href="@{'/question/'+${related.id}}" th:text="${related.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

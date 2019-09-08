@@ -50,6 +50,14 @@ body{
     padding-top: 15px;
     margin-bottom: 15px;
 }
+.question-related{
+    line-height: 25px;
+    font-size: 17px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
 
 .sub-comments .btn{
     margin: 10px 0;
@@ -84,4 +92,12 @@ body{
 }
 .content{
     margin-bottom: 20px;
+}
+.bold{
+    font-weight: bolder;
+}
+.hot-topic{
+}
+.question-wechat{
+    width: 50%;
 }

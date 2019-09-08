@@ -26,4 +26,8 @@
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
   </update>
+  
+  <select id="selectRelated" parameterType="com.chen.communit.model.Question" resultMap="BaseResultMap">
+    select * from question where id != #{id} and tag REGEXP #{tag}
+  </select>
 </mapper>

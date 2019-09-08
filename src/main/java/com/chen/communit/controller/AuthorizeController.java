@@ -2,7 +2,6 @@ package com.chen.communit.controller;
 
 import com.chen.communit.dto.AccessTokenDTO;
 import com.chen.communit.dto.GitHubUser;
-import com.chen.communit.mapper.UserMapper;
 import com.chen.communit.model.User;
 import com.chen.communit.provider.GitHubProvider;
 import com.chen.communit.service.UserService;

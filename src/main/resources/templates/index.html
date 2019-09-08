@@ -27,7 +27,16 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
+            <h2 style="display: inline-block;letter-spacing: 3px;font-weight: bold">
+                <span class="glyphicon glyphicon-list" aria-hidden="true" style="margin-right: 7px"></span>
+                发现
+            </h2>
+            <h2 style="display: inline-block;float: right;letter-spacing: 3px;margin-right: 100px;font-weight: bold">
+                <a href="/publish">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 5px"></span>
+                    发起问题
+                </a>
+            </h2>
             <hr>
             <div class="media" th:each="question : ${pagination.questions}">
                 <div class="media-left">
@@ -37,7 +46,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" >
-                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" class="bold"></a>
                     </h4>
                     <span th:text="${question.description}"></span><br>
                     <span class="text-desc">
@@ -74,8 +83,16 @@
             </nav>
 
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>热门话题</h3>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 hot-topic">
+            <h2 class="bold" style="letter-spacing: 3px;">
+                <span class="glyphicon glyphicon-align-justify"></span>
+                热门话题
+            </h2>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="bold">扫码加站长微信哦</h4>
+                <img src="/img/wexin.png" class="question-wechat">
+            </div>
         </div>
     </div>
 </div>
