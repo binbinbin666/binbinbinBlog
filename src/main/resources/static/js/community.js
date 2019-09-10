@@ -4,7 +4,7 @@
 function post() {
     var questionId = $("#question_id").val();
     var content = $("#comment_content").val();
-    comment2target(questionId, 1, content)
+    comment2target(questionId, 1, content);
 }
 
 /**
@@ -63,7 +63,7 @@ function comment2target(targetId, type, content, e) {
  * 需要回复时的登录
  */
 function login() {
-    window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+    window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://10.200.34.251:8887/callback&scope=user&state=1");
     window.localStorage.setItem("closeable", true);
     setTimeout(function () {
         window.location.reload();
@@ -304,5 +304,66 @@ function thumbsUp(e) {
             }
         }
     })
+}
+
+
+/**
+ * 开发语言框默认显示
+ * 输入框添加删除按钮
+ */
+$(function () {
+    //删除按钮
+    $("input").focus(function(){
+        $(this).parent().children(".input_clear").show();
+    });
+
+    $("input").blur(function(){
+        if($(this).val()=='')
+        {
+            $(this).parent().children(".input_clear").hide();
+        }
+    });
+    $(".input_clear").click(function(){
+        $(this).parent().find('input').val('');
+        $(this).hide();
+    });
+});
+
+/**
+ * 点击输入框显示标签框
+ */
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+/**
+ * 点击其他地方标签框隐藏
+ */
+$(function () {
+    $(document).bind("click",function(e){
+        var target  = $(e.target);
+
+        if(target.closest("#form-group-id").length === 0){
+            $("#select-tag").hide();
+        }
+    })
+});
+
+
+/**
+ * 添加标签
+ * @param name
+ */
+function selectTag(e) {
+    var val = $("#tag").val();
+    var data = $(e).data("tags");
+    console.log(data);
+    if (val.indexOf(data)===-1){
+        if (val===""){
+            $("#tag").val(data);
+        }else {
+            $("#tag").val(val+","+data);
+        }
+    }
 }
 

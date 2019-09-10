@@ -101,3 +101,23 @@ body{
 .question-wechat{
     width: 50%;
 }
+.tags-div{
+    padding-top: 5px;
+}
+.tags{
+    font-size: 20px;
+}
+.tags :hover{
+    color: #2e6da4;
+}
+.tags-span{
+    margin-right: 6px;
+    cursor: pointer;
+}
+.tags-span :hover{
+    color: #2e6da4;
+}
+.publish-tag-tab{
+    display: none;
+    margin-top: 10px;
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
 <!--引入导航栏-->
@@ -21,24 +22,50 @@
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）:</label>
-                    <input type="text" class="form-control" th:value="${title}" name="title" id="title" placeholder="问题标题...">
+                    <input type="text" class="form-control" th:value="${title}" name="title" id="title"
+                           placeholder="问题标题...">
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                    <textarea name="description" id="description" th:text="${description}" class="form-control" rows="15"></textarea>
+                    <textarea name="description" id="description" th:text="${description}" class="form-control"
+                              rows="15"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-group-id">
                     <label for="tag">添加标签(必填)</label>
-                    <input type="text" class="form-control" name="tag" id="tag" th:value="${tag}" placeholder="输入标签，以，分隔">
+                    <div style="position:relative;">
+                        <div style="position:absolute;right:2px;top:-2px;cursor:pointer;display:none;" class="input_clear">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" onclick="showSelectTag()" name="tag" id="tag"
+                               autocomplete="off" th:value="${tag}" placeholder="输入标签，以，分隔">
+                    </div>
+
+                    <div id="select-tag" class="publish-tag-tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="tagdtoName,index : ${tags}" th:class="${index.first?'active':''}">
+                                <a th:href="${'#'+tagdtoName.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${tagdtoName.categoryName}"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane tags-div" th:each="tagdtoTags,index : ${tags}" th:class="${index.first?'tab-pane tags-div active':'tab-pane tags-div'}">
+                                <span class="tags" th:each="tagdtos : ${tagdtoTags.tags}">
+                                    <span class="label label-info tags-span" onclick="selectTag(this)" th:data-tags="${tagdtos}" th:text="${tagdtos}"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="container-fluid main">
                     <div class="row">
                         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 ">
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 "
-                             th:text="${error}" th:if="${error!=null}">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 "
+                                 th:text="${error}" th:if="${error!=null}">
+                            </div>
                         </div>
-                    </div>
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <button type="submit" id="publish" class="btn btn-success btn-publish">发布</button>
                         </div>
@@ -49,10 +76,12 @@
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3 class="bold">问题发起指南</h3>
-            • 问题标题：请用精简的语言描述您发布的问题，不超过25字。<br/>
-            • 问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料。<br/>
-            • 选择标签：选择一个或多个合适的标签，用逗号隔开，每个标签不超过10个字。<br/>
+            <h3 class="bold">问题发起指南</h3><br/>
+            <span style="font-size: large">
+                • 问题标题：请用精简的语言描述您发布的问题，不超过25字。<br/><br/>
+                • 问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料。<br/><br/>
+                • 选择标签：选择一个或多个合适的标签，用逗号隔开，每个标签不超过10个字。<br/><br/>
+            </span>
         </div>
     </div>
 </div>
