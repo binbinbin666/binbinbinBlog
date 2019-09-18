@@ -2,6 +2,8 @@ package com.chen.communit.service;
 
 import com.chen.communit.dto.CommentDTO;
 import com.chen.communit.enums.CommentTypeEnum;
+import com.chen.communit.enums.NotificationTypeEnum;
+import com.chen.communit.enums.NotificationStatusEnum;
 import com.chen.communit.exception.CustomizeErrorCode;
 import com.chen.communit.exception.CustomizeException;
 import com.chen.communit.mapper.*;
@@ -34,8 +36,16 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
+    /**
+     * 新增对问题或者对回复的评论
+     * @param comment
+     * @param commentator
+     */
     @Transactional
-    public void insert(Comment comment) {
+    public void insert(Comment comment, User commentator) {
         if (comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARENT_NOT_FOUND);
         }
@@ -49,7 +59,12 @@ public class CommentService {
             Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
             if (dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
-            }
+        }
+
+        Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
 
             commentMapper.insert(comment);
             //增加评论数
@@ -57,6 +72,8 @@ public class CommentService {
             comment1.setCommentCount(1);
             comment1.setId(comment.getParentId());
             commentExtMapper.incCommentCount(comment1);
+            //回复通知
+            createNotify(comment, dbComment.getCommentator(), question.getTitle(),commentator.getName(), NotificationTypeEnum.REPLY_COMMENT,question.getId());
         }else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -65,9 +82,31 @@ public class CommentService {
             }
             commentMapper.insert(comment);
             //增加评论数
-            question.setCommentCount(1);
-            questionExtMapper.incCommentCount(question);
+           createNotify(comment,question.getCreator(),question.getTitle(), commentator.getName(), NotificationTypeEnum.REPLY_QUESTION,question.getId());
         }
+    }
+
+    /**
+     * 对问题或者评论回复的通知
+     * @param comment
+     * @param receiver
+     * @param outerTitle
+     * @param notifierName
+     * @param notificationTypeEnum
+     */
+    private void createNotify(Comment comment, Long receiver, String outerTitle, String notifierName, NotificationTypeEnum notificationTypeEnum,Long outerId) {
+        Notification notification = new Notification();
+
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationTypeEnum.getType());
+        notification.setNotifier(comment.getCommentator());
+        notification.setOuterid(outerId);
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+
+        notificationMapper.insert(notification);
     }
 
     /**

@@ -24,10 +24,10 @@
                 connectionURL="jdbc:mysql://localhost:3306/community?serverTimezone=UTC"
                 userId="root"
                 password="123456">
-                <!--设置可以获取tables remarks信息-->
-                <property name="useInformationSchema" value="true"/>
-                <!--设置可以获取remarks信息-->
-                <property name="remarks" value="true"/>
+<!--                &lt;!&ndash;设置可以获取tables remarks信息&ndash;&gt;-->
+<!--                <property name="useInformationSchema" value="true"/>-->
+<!--                &lt;!&ndash;设置可以获取remarks信息&ndash;&gt;-->
+<!--                <property name="remarks" value="true"/>-->
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -47,11 +47,12 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User" ></table>
-        <table tableName="question" domainObjectName="Question" >
-            <columnOverride column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
-        <table tableName="comment" domainObjectName="Comment" ></table>
+<!--        <table tableName="user" domainObjectName="User" ></table>-->
+<!--        <table tableName="question" domainObjectName="Question" >-->
+<!--            <columnOverride column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--        <table tableName="comment" domainObjectName="Comment" ></table>-->
+        <table tableName="notification" domainObjectName="Notification" ></table>
 
     </context>
 </generatorConfiguration>

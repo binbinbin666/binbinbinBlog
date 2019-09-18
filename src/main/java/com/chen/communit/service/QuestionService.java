@@ -41,7 +41,7 @@ public class QuestionService {
     public PaginationDTO list(Integer page, Integer size) {
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
         //查询数据总条数
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
 
@@ -67,7 +67,7 @@ public class QuestionService {
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
@@ -80,7 +80,7 @@ public class QuestionService {
      */
     public PaginationDTO list(Long userId, Integer page, Integer size) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
         //查询数据总条数
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
@@ -110,7 +110,7 @@ public class QuestionService {
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 

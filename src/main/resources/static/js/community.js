@@ -17,9 +17,16 @@ function comment(e) {
     comment2target(commentId, 2, content, e)
 }
 
+/**
+ * 评论的公共模块
+ * @param targetId
+ * @param type
+ * @param content
+ * @param e
+ */
 function comment2target(targetId, type, content, e) {
     if (!content) {
-        alert("不能回复空内容~")
+        alert("不能回复空内容~");
         return;
     }
     $.ajax({
@@ -32,8 +39,8 @@ function comment2target(targetId, type, content, e) {
             "type": type
         }),
         success: function (response) {
-            if (response.code == 200) {
-                if (type == 1) {
+            if (response.code === 200) {
+                if (type === 1) {
                     window.location.reload();
                 } else {
                     var commentId = e.getAttribute("data-id");
@@ -45,7 +52,7 @@ function comment2target(targetId, type, content, e) {
                     AddComments(elementById);
                 }
             } else {
-                if (response.code == 2003) {
+                if (response.code === 2003) {
                     var isAccepted = confirm(response.message);
                     if (isAccepted) {
                         window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
@@ -63,7 +70,7 @@ function comment2target(targetId, type, content, e) {
  * 需要回复时的登录
  */
 function login() {
-    window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://10.200.34.251:8887/callback&scope=user&state=1");
+    window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
     window.localStorage.setItem("closeable", true);
     setTimeout(function () {
         window.location.reload();
