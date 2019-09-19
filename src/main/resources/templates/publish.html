@@ -44,12 +44,12 @@
 
                     <div id="select-tag" class="publish-tag-tab">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" th:each="tagdtoName,index : ${tags}" th:class="${index.first?'active':''}">
+                            <li role="presentation" th:each="tagdtoName,index : ${tags}" th:id="${tagdtoName.categoryName}" th:class="${index.first?'active':''}">
                                 <a th:href="${'#'+tagdtoName.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${tagdtoName.categoryName}"></a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane tags-div" th:each="tagdtoTags,index : ${tags}" th:class="${index.first?'tab-pane tags-div active':'tab-pane tags-div'}">
+                            <div role="tabpanel" class="tab-pane tags-div" th:each="tagdtoTags,index : ${tags}" th:class="${index.first?'tab-pane tags-div active':'tab-pane tags-div'}" th:id="${tagdtoTags.categoryName}">
                                 <span class="tags" th:each="tagdtos : ${tagdtoTags.tags}">
                                     <span class="label label-info tags-span" onclick="selectTag(this)" th:data-tags="${tagdtos}" th:text="${tagdtos}"></span>
                                 </span>
