@@ -33,7 +33,7 @@
                         </h4>
                         <a th:href="@{'/delete/'+${question.id}}" style="float: right;" class="btn btn-danger btn-sm" role="button" onclick="return deleteQuestion()">删除</a>
                         <a th:href="@{'/publish/'+${question.id}}" style="float: right;" class="btn btn-default btn-sm" role="button">编辑</a>
-                        <span th:text="${question.description}"></span><br>
+<!--                        <span th:text="${question.description}"></span><br>-->
                         <span class="text-desc">
                             <span th:text="${question.commentCount}"></span> 个回复 •
                             <span th:text="${question.viewCount}"></span> 次浏览 •
