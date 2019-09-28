@@ -73,6 +73,12 @@ public class CommentController {
         return ResultDTO.okOf(commentDTOS);
     }
 
+    /**
+     * 点赞功能
+     * @param commentCreateDTO
+     * @param httpServletRequest
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/thumbsup",method = RequestMethod.POST)
     public Object thumbsUp(@RequestBody CommentCreateDTO commentCreateDTO,

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 处理通用异常
+ * 通用异常异常
  */
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")

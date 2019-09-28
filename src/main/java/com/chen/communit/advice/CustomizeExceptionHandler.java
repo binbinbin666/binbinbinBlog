@@ -17,6 +17,14 @@ import java.io.PrintWriter;
 @ControllerAdvice
 public class CustomizeExceptionHandler {
 
+    /**
+     * 异常处理
+     * @param e
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
     @ExceptionHandler({Exception.class})
     ModelAndView handler(Throwable e, Model model,
                          HttpServletRequest request,
