@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <title>出错啦！！！</title>
+    <title th:text="${message}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -12,9 +12,8 @@
 </head>
 <body>
 <div class="jumbotron">
-    <h1>出错啦！！！</h1>
-    <p th:text="${message}">访问人数太多了，要不稍等下再来试试~</p>
-    <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
+    <h2 th:text="${message}">访问人数太多了，要不稍等下再来试试~</h2>
+    <p><a class="btn btn-primary btn-lg" href="/" role="button">点击返回主页</a></p>
 </div>
 </body>
 </html>

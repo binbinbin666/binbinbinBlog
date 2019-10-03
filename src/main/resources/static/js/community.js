@@ -55,7 +55,8 @@ function comment2target(targetId, type, content, e) {
                 if (response.code === 2003) {
                     var isAccepted = confirm(response.message);
                     if (isAccepted) {
-                        window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        // window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1");
+                        window.location.href="https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1";
                         window.localStorage.setItem("closeable", true);
                     }
                 } else {
@@ -70,7 +71,8 @@ function comment2target(targetId, type, content, e) {
  * 需要回复时的登录
  */
 function login() {
-    window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+    // window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1");
+    window.location.href="https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1";
     window.localStorage.setItem("closeable", true);
     setTimeout(function () {
         window.location.reload();
@@ -302,7 +304,8 @@ function thumbsUp(e) {
                 if (response.code == 2003) {
                     var isAccepted = confirm(response.message);
                     if (isAccepted) {
-                        window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        // window.open("https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1");
+                        window.location.href="https://github.com/login/oauth/authorize?client_id=7eb8077db329c933c502&redirect_uri=http://www.ldbin.club/callback&scope=user&state=1";
                         window.localStorage.setItem("closeable", true);
                     }
                 } else {
@@ -371,6 +374,15 @@ function selectTag(e) {
         }else {
             $("#tag").val(val+","+data);
         }
+    }
+}
+
+function isBlank() {
+    if ($("#search").val()==null||$("#search").val()===""){
+        alert("你还没输入查询条件呢~");
+        return false;
+    }else {
+        return true;
     }
 }
 

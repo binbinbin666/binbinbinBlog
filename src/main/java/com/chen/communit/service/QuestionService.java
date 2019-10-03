@@ -2,6 +2,7 @@ package com.chen.communit.service;
 
 import com.chen.communit.dto.PaginationDTO;
 import com.chen.communit.dto.QuestionDTO;
+import com.chen.communit.dto.QuestionQueryDTO;
 import com.chen.communit.exception.CustomizeErrorCode;
 import com.chen.communit.exception.CustomizeException;
 import com.chen.communit.mapper.QuestionExtMapper;
@@ -38,13 +39,22 @@ public class QuestionService {
      * @param size 每页显示的数据条数
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search,Integer page, Integer size) {
 
+
+        if (StringUtils.isNotBlank(search)){
+            String[] split = StringUtils.split(search, " ");
+            search = Arrays.stream(split).collect(Collectors.joining("|"));
+        }
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
         //查询数据总条数
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
-
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+        if (totalCount==0){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         paginationDTO.setPagination(totalCount,page,size);
         //控制页数
         if(page<1){
@@ -56,7 +66,10 @@ public class QuestionService {
         //size*(page-1)
         Integer offset = size*(page - 1);
 
-        for (Question question : questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,size))) {
+        questionQueryDTO.setPage(offset);
+        questionQueryDTO.setSize(size);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+        for (Question question : questions) {
             QuestionDTO questionDTO = new QuestionDTO();
             //问题描述
             Question selectByPrimaryKey = questionMapper.selectByPrimaryKey(question.getId());
