@@ -10,7 +10,7 @@
     <script src="/js/community.js" type="application/javascript"></script>
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
-
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <script type="application/javascript">
         window.onload = function () {
             var closeable = window.localStorage.getItem("closeable");
@@ -122,5 +122,8 @@
         </div>
     </div>
 </div>
+
+<div th:insert="common/footer :: foot"></div>
+
 </body>
 </html>
