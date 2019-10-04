@@ -1,0 +1,75 @@
+2019-10-04 11:32:32.268  INFO 6248 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-04 11:32:32.678  INFO 6248 --- [restartedMain] com.chen.communit.CommunitApplication    : Starting CommunitApplication on PC-20190610TWWV with PID 6248 (D:\IDEACODE\chen-community\target\classes started by Administrator in D:\IDEACODE\chen-community)
+2019-10-04 11:32:32.678  INFO 6248 --- [restartedMain] com.chen.communit.CommunitApplication    : No active profile set, falling back to default profiles: default
+2019-10-04 11:32:33.198  INFO 6248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
+2019-10-04 11:32:33.199  INFO 6248 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-04 11:32:33.200  INFO 6248 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-04 11:32:33.233  INFO 6248 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-04 11:32:33.233  INFO 6248 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 551 ms
+2019-10-04 11:32:33.535  INFO 6248 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-04 11:32:33.573  INFO 6248 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-10-04 11:32:33.794  INFO 6248 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-04 11:32:33.825  INFO 6248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 80 (http) with context path ''
+2019-10-04 11:32:33.826  INFO 6248 --- [restartedMain] com.chen.communit.CommunitApplication    : Started CommunitApplication in 1.186 seconds (JVM running for 252.136)
+2019-10-04 11:32:33.829  INFO 6248 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-10-04 11:33:06.283  INFO 9484 --- [restartedMain] com.chen.communit.CommunitApplication    : Starting CommunitApplication on PC-20190610TWWV with PID 9484 (D:\IDEACODE\chen-community\target\classes started by Administrator in D:\IDEACODE\chen-community)
+2019-10-04 11:33:06.288  INFO 9484 --- [restartedMain] com.chen.communit.CommunitApplication    : No active profile set, falling back to default profiles: default
+2019-10-04 11:33:06.350  INFO 9484 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-04 11:33:06.350  INFO 9484 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-04 11:33:08.153  INFO 9484 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
+2019-10-04 11:33:08.183  INFO 9484 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-04 11:33:08.184  INFO 9484 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-04 11:33:08.324  INFO 9484 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-04 11:33:08.324  INFO 9484 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1974 ms
+2019-10-04 11:33:09.163  INFO 9484 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-04 11:33:09.259  INFO 9484 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-10-04 11:33:09.632  INFO 9484 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-04 11:33:09.701  INFO 9484 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 80 (http) with context path ''
+2019-10-04 11:33:09.705  INFO 9484 --- [restartedMain] com.chen.communit.CommunitApplication    : Started CommunitApplication in 3.91 seconds (JVM running for 5.168)
+2019-10-04 11:33:22.817  INFO 9484 --- [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-04 11:33:22.818  INFO 9484 --- [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-04 11:33:22.827  INFO 9484 --- [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2019-10-04 11:33:22.898  INFO 9484 --- [http-nio-80-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-04 11:33:23.350  INFO 9484 --- [http-nio-80-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-04 11:33:23.360 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.QuestionExtMapper.countBySearch  : ==>  Preparing: select count(*) from question 
+2019-10-04 11:33:23.387 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.QuestionExtMapper.countBySearch  : ==> Parameters: 
+2019-10-04 11:33:23.447 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.QuestionExtMapper.countBySearch  : <==      Total: 1
+2019-10-04 11:33:23.451 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectBySearch                 : ==>  Preparing: select * from question order by gmt_create desc limit ?,? 
+2019-10-04 11:33:23.452 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectBySearch                 : ==> Parameters: 0(Integer), 6(Integer)
+2019-10-04 11:33:23.482 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectBySearch                 : <==      Total: 6
+2019-10-04 11:33:23.483 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.484 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 30(Long)
+2019-10-04 11:33:23.506 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.507 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.508 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 3(Long)
+2019-10-04 11:33:23.544 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-04 11:33:23.553 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.553 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 29(Long)
+2019-10-04 11:33:23.582 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.582 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.583 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 4(Long)
+2019-10-04 11:33:23.606 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-04 11:33:23.607 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.608 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 28(Long)
+2019-10-04 11:33:23.640 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.641 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.641 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-04 11:33:23.665 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-04 11:33:23.666 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.666 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 26(Long)
+2019-10-04 11:33:23.688 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.689 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.689 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 3(Long)
+2019-10-04 11:33:23.728 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-04 11:33:23.728 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.729 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 25(Long)
+2019-10-04 11:33:23.751 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.751 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.752 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-04 11:33:23.774 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-04 11:33:23.775 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==>  Preparing: select ID, TITLE, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG , DESCRIPTION from QUESTION where ID = ? 
+2019-10-04 11:33:23.775 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : ==> Parameters: 24(Long)
+2019-10-04 11:33:23.798 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.Q.selectByPrimaryKey             : <==      Total: 1
+2019-10-04 11:33:23.798 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2019-10-04 11:33:23.799 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-04 11:33:23.820 DEBUG 9484 --- [http-nio-80-exec-1] c.c.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
