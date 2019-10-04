@@ -1,7 +1,7 @@
 ## 基于SpringBoot开发的个人博客/论坛
 
 ### 网站地址：www.ldbin.club
-###本人QQ
+### 本人QQ：1426308204
 
 ## 资料
 [Spring 文档](https://spring.io/guides)    
