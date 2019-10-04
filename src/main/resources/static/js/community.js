@@ -386,3 +386,23 @@ function isBlank() {
     }
 }
 
+/**
+ * 提交问题前的判断
+ * @returns {boolean}
+ * @constructor
+ */
+function PublishCheck() {
+    var title = $("#title").val();
+    var description = $("#description").val();
+    var tag = $("#tag").val();
+    if (title==null||title===""){
+        alert("标题不能为空哦~");
+        return false;
+    }else if (description==null||description===""){
+        alert("内容不能为空哦~");
+        return false;
+    }else if (tag==null||tag===""){
+        alert("标签不能为空哦~");
+        return false;
+    }
+}

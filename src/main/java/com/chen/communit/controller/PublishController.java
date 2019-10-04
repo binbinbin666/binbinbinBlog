@@ -42,7 +42,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
-
+        model.addAttribute("tags", TagCache.get());
 
 
         if (title == null || title == ""){
